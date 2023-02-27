@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Task.init({
+    id:{
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
     content: DataTypes.STRING,
     tag: DataTypes.STRING,
     status: DataTypes.STRING

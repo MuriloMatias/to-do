@@ -1,5 +1,7 @@
-const express = require('express');
+const { Router } = require('express');
+const service = require('../services/task_service');
+const router = Router();
 
-const router = express.Router();
+router.post('/', service.createTask);
 
 module.exports = router
