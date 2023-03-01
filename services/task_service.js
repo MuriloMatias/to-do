@@ -1,4 +1,5 @@
 const { Task } = require('../models');
+let {auxiliary} = require('./auxiliaryMethods');
 
 const createTask = async(req, res)=>{
     const { content, tag, status } = req.body;
@@ -11,16 +12,22 @@ const createTask = async(req, res)=>{
         });
         return res.status(201).json(newTask);
     }catch(error){
-        return handleError(error, res)
+        return auxiliary.handleError(error, res); 
     }
 }
 
-const handleError = (error, res) => {
-    console.log(error);
-    return res.status(500).json({ error: error.message });
-  };
+const getTasks = async(req, res) =>{
+    try{
+        const tasks = await Task.findAll();
+        return res.status(201).json(tasks);
+    }catch(error){
+        return auxiliary.handleError(error, res);
+    }
+}
+
 
 module.exports = {
     createTask,
+    getTasks,
 
 }
