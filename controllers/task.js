@@ -4,4 +4,7 @@ const router = Router();
 
 router.post('/', service.createTask);
 router.get('/', service.getTasks);
+
+
+router.get('/:id', service.getTaskById);
 module.exports = router
