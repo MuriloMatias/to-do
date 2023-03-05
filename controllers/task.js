@@ -5,6 +5,8 @@ const router = Router();
 router.post('/', service.createTask);
 router.get('/', service.getTasks);
 
+//Corrigir 
+router.get('/tag', service.getTaskByTag);
 
 router.get('/:id', service.getTaskById);
 module.exports = router
