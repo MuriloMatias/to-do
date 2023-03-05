@@ -7,6 +7,7 @@ router.get('/', service.getTasks);
 router.get('/tag', service.getTaskByTag);
 router.get('/:id', service.getTaskById);
 router.put('/:id', service.updateTask);
+router.delete('/:id', service.deleteTask);
 
 
 module.exports = router
