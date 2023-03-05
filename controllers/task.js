@@ -4,9 +4,9 @@ const router = Router();
 
 router.post('/', service.createTask);
 router.get('/', service.getTasks);
-
-//Corrigir 
 router.get('/tag', service.getTaskByTag);
-
 router.get('/:id', service.getTaskById);
+router.put('/:id', service.updateTask);
+
+
 module.exports = router

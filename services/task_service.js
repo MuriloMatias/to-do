@@ -1,8 +1,7 @@
 const { Task } = require('../models');
-let {auxiliary} = require('./auxiliaryMethods');
+const {auxiliary} = require('./auxiliaryMethods');
 
 //TODO
-//Criar uma nova rota para o GetTaskByTag ou Fazer uma validação para descobrir qual a rota correta que deve ser direcionada
 const createTask = async(req, res)=>{
     const { content, tag, status } = req.body;
 
@@ -27,7 +26,7 @@ const getTasks = async(req, res) =>{
     }
 }
 
-//corrigir
+
 const getTaskByTag = async(req, res) =>{
     const tag = req.query.tag;
     try{
@@ -44,7 +43,6 @@ const getTaskByTag = async(req, res) =>{
 
 const getTaskById = async(req, res) =>{
     const id = req.params.id
-    console.log(req.params);
     try{
         const task = await Task.findByPk(id);
         if(task) return res.status(200).json(task);
@@ -53,11 +51,36 @@ const getTaskById = async(req, res) =>{
         return auxiliary.handleError(error, res);
     }
 }
+//Change some things after
+const updateTask = async(req, res) =>{
+    const id = req.params.id;
+    
+    const {content, tag, status} = req.body;
 
+    try{
+        let task = await Task.findByPk(id);
+        if(!task) return res.status(404).send("Task not found");
+
+        await Task.update({
+            content: content,
+            tag: tag,
+            status: status,
+        }, {
+            where:{id: id}
+        });
+
+        task = await Task.findByPk(id);
+        return res.status(200).json(task);
+    }catch(error){
+        return auxiliary.handleError(error, res);
+    }
+}
 
 module.exports = {
     createTask,
     getTasks,
     getTaskByTag,
     getTaskById,
+    updateTask,
+
 }
